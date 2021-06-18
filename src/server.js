@@ -32,8 +32,13 @@ const uploads = require('./api/uploads');
 const StorageService = require('./services/S3/StorageService');
 const UploadsValidator = require('./validator/uploads');
 
+// cache
+const CacheService = require('./services/redis/CacheService');
+ 
+
 const init = async () => {
-  const notesService = new NotesService();
+  const cacheService = new CacheService();
+  const notesService = new NotesService(cacheService);
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
   const storageService = new StorageService();
